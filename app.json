@@ -1,0 +1,12 @@
+{
+  "name": "rocketseatrc",
+  "displayName": "rocketseat-rc",
+  "expo": {
+    "name": "rocketseat-rc",
+    "slug": "rocketseat-rc",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
