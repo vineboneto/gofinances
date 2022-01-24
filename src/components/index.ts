@@ -1,4 +1,5 @@
 export * from './highlight-card'
 export * from './transaction-card'
 export * from './history-card'
+export * from './sign-social-button'
 export * from './form'
