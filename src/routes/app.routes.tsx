@@ -6,6 +6,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import * as Pages from '@/screens'
 const { Navigator, Screen } = createBottomTabNavigator()
 
+export type RootBottomTabsParamsList = {
+  Listagem: undefined
+  Cadastrar: undefined
+  Resumo: undefined
+}
+
 export function AppRoutes() {
   const theme = useTheme()
 
@@ -38,7 +44,7 @@ export function AppRoutes() {
       />
       <Screen
         name="Resumo"
-        component={Pages.Register}
+        component={Pages.Resume}
         options={{
           tabBarIcon: ({ size, color }) => <MaterialIcons name="pie-chart" color={color} size={size} />,
         }}
