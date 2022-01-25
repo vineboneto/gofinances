@@ -3,34 +3,31 @@ import 'intl/locale-data/jsonp/pt-BR'
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 import { useFonts, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold } from '@expo-google-fonts/poppins'
-import { NavigationContainer } from '@react-navigation/native'
-import AppLoading from 'expo-app-loading'
 
-import { SignIn } from '@/screens'
-import { AppRoutes } from '@/routes'
-import { AuthProvider } from '@/hooks'
+import AppLoading from 'expo-app-loading'
+import { Routes } from '@/routes'
+import { AuthProvider, useAuth } from '@/hooks'
 import theme from '@/global/theme'
 import { StatusBar } from 'react-native'
 
 export default function App() {
+  const { userStorageLoading } = useAuth()
   const [fontLoaded] = useFonts({
     Poppins_400Regular,
     Poppins_500Medium,
     Poppins_700Bold,
   })
 
-  if (!fontLoaded) {
+  if (!fontLoaded || userStorageLoading) {
     return <AppLoading />
   }
 
   return (
     <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <StatusBar barStyle="light-content" />
-        <AuthProvider>
-          <SignIn />
-        </AuthProvider>
-      </NavigationContainer>
+      <StatusBar barStyle="light-content" />
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </ThemeProvider>
   )
 }

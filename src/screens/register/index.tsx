@@ -9,6 +9,7 @@ import { useForm } from 'react-hook-form'
 import { Button, TransactionTypeButton, CategorySelectButton, InputForm } from '@/components'
 import { CategorySelect } from '../category-select'
 import { Container, Header, Title, Form, Fields, TransactionsTypes } from './styles'
+import { useAuth } from '@/hooks'
 
 type FormData = {
   name: string
@@ -24,6 +25,8 @@ const schema = Yup.object().shape({
 })
 
 export function Register() {
+  const { user } = useAuth()
+
   const [transactionType, setTransactionType] = useState('')
   const [isOpenCategoryModal, setIsOpenCategoryModal] = useState(false)
 
@@ -54,7 +57,7 @@ export function Register() {
   }
 
   const handleRegister = async (form: FormData) => {
-    const dataKey = '@gofinances:transactions'
+    const dataKey = `@gofinances:transactions_user=${user.id}`
 
     if (!transactionType) {
       return Alert.alert('Selecione o tipo da transação')

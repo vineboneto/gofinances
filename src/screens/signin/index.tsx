@@ -1,6 +1,7 @@
-import React from 'react'
-import { Alert } from 'react-native'
+import React, { useState } from 'react'
+import { ActivityIndicator, Alert, Platform } from 'react-native'
 import { RFValue } from 'react-native-responsive-fontsize'
+import { useTheme } from 'styled-components'
 
 import AppleSvg from '@/assets/apple.svg'
 import GoogleSvg from '@/assets/google.svg'
@@ -10,14 +11,35 @@ import { Container, Header, TitleWrapper, Title, SignTitle, Footer, FooterWrappe
 import { useAuth } from '@/hooks'
 
 export function SignIn() {
-  const { signInWithGoogle } = useAuth()
+  const theme = useTheme()
+  const { signInWithGoogle, signInWithApple } = useAuth()
+  const [isLoading, setIsLoading] = useState(false)
 
-  async function handleSignInWIthGoogle() {
+  async function handleSignInWithGoogle() {
     try {
-      await signInWithGoogle()
+      if (isLoading) return
+
+      setIsLoading(true)
+
+      return await signInWithGoogle()
     } catch (err: any) {
       console.log(err.message)
       Alert.alert('Não foi possível conectar na conta google')
+      setIsLoading(false)
+    }
+  }
+
+  async function handleSignInWithApple() {
+    try {
+      if (isLoading) return
+
+      setIsLoading(true)
+
+      return await signInWithApple()
+    } catch (err: any) {
+      console.log(err.message)
+      Alert.alert('Não foi possível conectar na conta apple')
+      setIsLoading(false)
     }
   }
 
@@ -36,9 +58,12 @@ export function SignIn() {
 
       <Footer>
         <FooterWrapper>
-          <SignInSocialButton title="Entrar com Google" svg={GoogleSvg} onPress={handleSignInWIthGoogle} />
-          <SignInSocialButton title="Entrar com Apple" svg={AppleSvg} />
+          <SignInSocialButton title="Entrar com Google" svg={GoogleSvg} onPress={handleSignInWithGoogle} />
+          {Platform.OS === 'ios' && (
+            <SignInSocialButton title="Entrar com Apple" svg={AppleSvg} onPress={handleSignInWithApple} />
+          )}
         </FooterWrapper>
+        {isLoading && <ActivityIndicator style={{ marginTop: 18 }} color={theme.colors.shape} size="large" />}
       </Footer>
     </Container>
   )
