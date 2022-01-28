@@ -1,11 +1,25 @@
 {
-  "name": "rocketseatrc",
-  "displayName": "rocketseat-rc",
+  "name": "gofinances",
+  "displayName": "gofinances",
   "expo": {
-    "name": "rocketseat-rc",
-    "slug": "rocketseat-rc",
-    "scheme": "rocketseat-rc",
+    "name": "gofinances",
+    "icon": "./assets/icon.png",
+    "slug": "gofinances",
+    "scheme": "gofinances",
     "version": "1.0.0",
+    "splash": {
+      "image": "./assets/splash.png",
+      "backgroundColor": "#5636D3",
+      "resizeMode": "contain"
+    },
+    "android": {
+      "package": "com.gofinances",
+      "versionCode": 1
+    },
+    "ios": {
+      "bundleIdentifier": "com.gofinances",
+      "buildNumber": "1.0.0"
+    },
     "assetBundlePatterns": [
       "**/*"
     ]
